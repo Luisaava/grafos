@@ -11,7 +11,7 @@ class Grafo:
         ##dicionarios foram usados em vez de matriz e afins pois a complexidade é menor
 
         if arquivo:
-            self.ler(arquivo)
+            self.ler(arquivo) #TODO
 
     def qtdVertices(self) : 
         return self.quantidade_vertices
