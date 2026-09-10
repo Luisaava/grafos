@@ -1,5 +1,3 @@
-import math
-
 inf = float('inf') # constante infinita
 
 class Grafo:
@@ -56,6 +54,8 @@ class Grafo:
                 linha = linha.strip().split()
                 if linha[0] == "*vertices":
                     self.num_vertices = int(linha[1]) # já descobre o número de vertices
+                    for i in range(1, self.num_vertices + 1):
+                        self.dict_adjacencias[i] = list() # inicializa a lista de ajacencias
                 elif linha[0] == "*edges":
                     lendo_arestas = True
                 elif not lendo_arestas: # portanto, lendo vértices
@@ -67,13 +67,8 @@ class Grafo:
                     v = int(linha[1])
                     valor_peso = float(linha[2])
 
-                    if u not in self.dict_adjacencias:
-                        self.dict_adjacencias[u] = list()
                     self.dict_adjacencias[u].append((v, valor_peso))
-
-                    if v not in self.dict_adjacencias: # aresta para os dois lados
-                        self.dict_adjacencias[v] = list()
-                    self.dict_adjacencias[v].append((u, valor_peso))
+                    self.dict_adjacencias[v].append((u, valor_peso)) # aresta para os dois lados
                     # OBS.: dessa forma, a lista de adjacencias fica desordenada
                     # ex.: se o 1 liga com 10 (e não com 2), a chave do 10 é criada antes da chave 2
                     # mas nao muda nada :)
@@ -85,6 +80,7 @@ if __name__=="__main__":
     # print(grafo.rotulo(1))
     # print(grafo.rotulos)
     # print(grafo.dict_adjacencias[10])
+    print(grafo.dict_adjacencias)
     print(grafo.qtdVertices())
     print(grafo.qtdArestas())
     print(grafo.grau(10))
