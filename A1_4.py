@@ -11,7 +11,7 @@ def updateheap(q, index, newval):
             heapq.heapify(q)
             return q
 
-def dijkstra(grafo, s):
+def dijkstra(grafo: Grafo, s: int):
     distancia = [inf] * grafo.num_vertices
     ancestral = [None] * grafo.num_vertices
     conhecido = [False] * grafo.num_vertices
@@ -32,9 +32,9 @@ def dijkstra(grafo, s):
 if __name__=="__main__":
     if len(sys.argv) == 3:
         args = sys.argv
-        arquivo_arvore = args[1]
+        arquivo_grafo = args[1]
         s = int(args[2])
-        grafo = Grafo(arquivo_arvore)
+        grafo = Grafo(arquivo_grafo)
         d, a = dijkstra(grafo, s)
         for i in range(1, grafo.num_vertices+1):
             caminho = [i]
@@ -48,4 +48,4 @@ if __name__=="__main__":
 
     else:
         print("Forneça os argumentos no seguinte formato: \n" \
-        "python3 A1_4.py nome_arvore indice_vertice_inicial")
+        "python3 A1_4.py nome_grafo indice_vertice_inicial")
