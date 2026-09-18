@@ -36,7 +36,13 @@ def procura_subciclo(grafo: Grafo, v: int, arestas_nao_visitadas: dict) :
 
     i = 0
     while i < len(ciclo) : #aqui a gente vai passr pelos vertices no ciclo e ver se tem aresta faltando visitar
-        pass
-        
+        vertice_no_ciclo = ciclo[i]
+        if len(arestas_nao_visitadas[vertice_no_ciclo]) > 0:
+            tem_ciclo_ou_nao, ciclo_eba = procura_subciclo(v, arestas_nao_visitadas)
 
+            if tem_ciclo_ou_nao is False:
+                return(False, None)
+
+            ciclo = ciclo[:i] + ciclo_eba+ ciclo[i+1:] #fatia o ciclo pra inserir na posicao do vertice_no_ciclo
+            
     return (True, ciclo)
