@@ -52,6 +52,10 @@ class Grafo:
         with open(arquivo, "r", encoding="utf-8") as f:
             for linha in f:
                 linha = linha.strip().split()
+
+                if linha == None: 
+                    continue
+
                 if linha[0] == "*vertices":
                     self.num_vertices = int(linha[1]) # já descobre o número de vertices
                     for i in range(1, self.num_vertices + 1):

@@ -1,4 +1,5 @@
 from grafo import Grafo
+import sys
 inf = float('inf')
 
 def busca_largura(grafo:Grafo, s:int) :
@@ -28,9 +29,28 @@ def busca_largura(grafo:Grafo, s:int) :
                 A[v] = u
                 Q.append(v)
 
-    print(D,A)
     return (D, A)
 
 
-grafo = Grafo("./arquivos_grafos/instancias/caminho_minimo/fln_pequena.net")
-busca_largura(grafo, 3)
+if __name__ == "__main__":
+
+    if len(sys.argv) < 3:
+        print("Forneça os argumentos:\n python3 A1_2.py caminho_do_arquivo vertice_inicial")
+        sys.exit(1)
+        
+    arquivo = sys.argv[1] #pega o nome do arquivo
+    vertice_inicial = int(sys.argv[2]) #pega o vertice inicial 
+    
+    grafo = Grafo(arquivo) #tornamos o arquivo um grafo
+    D, A = busca_largura(grafo, vertice_inicial) #pega a listagem de distancias e guarda em D
+    
+    niveis = {} #novo dicionario pra saída sair conforme solicitado
+    for vertice, nivel in D.items():
+        if nivel != inf:
+            if nivel not in niveis:
+                niveis[nivel] = []
+            niveis[nivel].append(vertice)
+            
+    for nivel in sorted(niveis.keys()):
+        lista_vertices = ",".join(map(str, niveis[nivel]))
+        print(f"{nivel}: {lista_vertices}")
