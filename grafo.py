@@ -49,6 +49,7 @@ class Grafo:
 
     def ler(self, arquivo: str):
         lendo_arestas = False
+        lendo_arcos = False
         with open(arquivo, "r", encoding="utf-8") as f:
             for linha in f:
                 linha = linha.strip().split()
@@ -62,9 +63,11 @@ class Grafo:
                         self.dict_adjacencias[i] = list() # inicializa a lista de ajacencias
                 elif linha[0] == "*edges":
                     lendo_arestas = True
-                elif not lendo_arestas: # portanto, lendo vértices
+                elif linha[0] == "*arcs":
+                    lendo_arcos = True
+                elif not lendo_arestas and not lendo_arcos: # portanto, lendo vértices
                     self.rotulos.append(' '.join(linha[1:])) # adiciona o rótulo do vértice
-                elif lendo_arestas: # portanto, lendo arestas
+                elif lendo_arestas or lendo_arcos: # já leu todos os vértices
                     self.num_arestas += 1
 
                     u = int(linha[0])
@@ -72,7 +75,8 @@ class Grafo:
                     valor_peso = float(linha[2])
 
                     self.dict_adjacencias[u].append((v, valor_peso))
-                    self.dict_adjacencias[v].append((u, valor_peso)) # aresta para os dois lados
+                    if lendo_arestas:
+                        self.dict_adjacencias[v].append((u, valor_peso)) # aresta para os dois lados
                     # OBS.: dessa forma, a lista de adjacencias fica desordenada
                     # ex.: se o 1 liga com 10 (e não com 2), a chave do 10 é criada antes da chave 2
                     # mas nao muda nada :)
@@ -80,7 +84,8 @@ class Grafo:
 if __name__=="__main__":
     # teste = {1: [(1, 2), (3, 4)]}
     # print(2 not in teste)
-    grafo = Grafo("./arquivos_grafos/instancias/caminho_minimo/fln_pequena.net")
+    # grafo = Grafo("./arquivos_grafos/instancias/caminho_minimo/fln_pequena.net")
+    grafo = Grafo("./arquivos_grafos/instancias/dirigidos/manha.net")
     # print(grafo.rotulo(1))
     # print(grafo.rotulos)
     # print(grafo.dict_adjacencias[10])
