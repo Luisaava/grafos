@@ -30,7 +30,7 @@ class Grafo:
     def rotulo(self, v: int) -> str:
         return self.rotulos[v - 1] # como o v é índice de 1 a n, tem q subtrair 1
 
-    def vizinhos(self, v: int):
+    def vizinhos(self, v: int) -> list[int]:
         return [edge[0] for edge in self.dict_adjacencias[v]] # itera sobre a lista de arestas do v
     
     def haAresta(self, u: int, v: int) -> bool:
